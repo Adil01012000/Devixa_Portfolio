@@ -1,7 +1,7 @@
 {
-  "name": "saas-landing-page-template",
+  "name": "devixa-technologies",
   "version": "0.1.0",
-  "description": "landing page template for saas products",
+  "description": "devixa technologies portfolio",
   "private": true,
   "scripts": {
     "dev": "next dev",
