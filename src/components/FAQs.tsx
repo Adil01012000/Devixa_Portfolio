@@ -6,24 +6,34 @@ import clsx from "clsx";
 import {motion , AnimatePresence} from 'framer-motion';
 const items = [
   {
-    question: "What payment methods do you accept?",
+    question: "What types of custom software do you develop?",
     answer:
-      "We accept all major credit cards, PayPal, and various other payment methods depending on your location. Please contact our support team for more information on accepted payment methods in your region.",
+      "We develop a wide range of custom software solutions including web applications, mobile apps (iOS & Android), desktop software, enterprise systems, APIs, and cloud-based solutions. Our team specializes in creating scalable, secure, and user-friendly applications tailored to your specific business needs.",
   },
   {
-    question: "How does the pricing work for teams?",
+    question: "How long does a typical software development project take?",
     answer:
-      "Our pricing is per user, per month. This means you only pay for the number of team members you have on your account. Discounts are available for larger teams and annual subscriptions.",
+      "Project timelines vary depending on complexity and scope. A simple web application might take 2-4 months, while complex enterprise solutions can take 6-12 months. We provide detailed project timelines during our initial consultation and keep you updated throughout the development process with regular milestones and progress reports.",
   },
   {
-    question: "Can I change my plan later?",
+    question: "Do you provide ongoing support and maintenance?",
     answer:
-      "Yes, you can upgrade or downgrade your plan at any time. Changes to your plan will be prorated and reflected in your next billing cycle.",
+      "Yes, we offer comprehensive post-launch support and maintenance services. This includes bug fixes, security updates, feature enhancements, performance optimization, and technical support. We provide flexible support packages to ensure your software continues to perform optimally as your business grows.",
   },
   {
-    question: "Is my data secure?",
+    question: "What technologies and frameworks do you use?",
     answer:
-      "Security is our top priority. We use state-of-the-art encryption and comply with the best industry practices to ensure that your data is stored securely and accessed only by authorized users.",
+      "We work with modern, industry-standard technologies including React, Next.js, Node.js, Python, Java, .NET, React Native, Flutter, AWS, Azure, and more. Our technology choices are always based on your project requirements, scalability needs, and long-term maintenance considerations.",
+  },
+  {
+    question: "How do you ensure the security of our software?",
+    answer:
+      "Security is fundamental to our development process. We implement security best practices from the ground up, including secure coding standards, regular security audits, penetration testing, data encryption, and compliance with industry standards like GDPR, HIPAA, and SOC 2. We also provide security documentation and training for your team.",
+  },
+  {
+    question: "Can you work with our existing systems and integrate them?",
+    answer:
+      "Absolutely! We specialize in system integration and can seamlessly connect new software with your existing systems, databases, APIs, and third-party services. Our team has extensive experience in legacy system modernization and creating unified, efficient workflows across your entire technology stack.",
   },
 ];
 

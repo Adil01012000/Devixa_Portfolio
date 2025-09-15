@@ -2,7 +2,7 @@ import InstaIcon from '../assets/icons/insta.svg'
 import XIcon from '../assets/icons/x-social.svg'
 import LinkedInIcon from '../assets/icons/linkedin.svg'
 import YoutubeIcon from '../assets/icons/youtube.svg'
-// import Logo from '../assets/images/logo.svg' // adjust path if different
+import Logo from '../assets/images/logo.png'
 
 export const Footer = () => {
   return (
@@ -12,7 +12,7 @@ export const Footer = () => {
           
           {/* Left column */}
           <div>
-            {/* <img src={Logo} alt="Logo" className="h-10 mb-4" /> */}
+            <img src={Logo.src} alt="Logo" className="h-10 mb-4" />
             <p className="mb-6">Not technology, solutions!</p>
             
             <div className="mb-4">
@@ -36,15 +36,15 @@ export const Footer = () => {
 
           {/* Middle column */}
           <div>
-            <h4 className="font-semibold mb-3">Our locations</h4>
+            {/* <h4 className="font-semibold mb-3">Our locations</h4>
             <p>
               <span className="font-bold">Lahore</span> — 1st floor, C-31/10, Main Blvd, Lake City, Raiwind Road, Lahore, Pakistan
             </p>
             <p className="mt-3">
               <span className="font-bold">Karachi</span> — Office No. 803, 8th Floor, Business Center, 19/1A Shahra e Faisal, Block 6 PECHS Karachi, Pakistan
-            </p>
-            <p className="mt-4"><a href="mailto:info@biafotech.com" className="underline">info@biafotech.com</a></p>
-            <p className="mt-1 font-bold">+92 423 230 3230</p>
+            </p> */}
+            <p className="mt-4"><a href="mailto:info@biafotech.com" className="underline">sales.devixatech@gmail.com</a></p>
+            <p className="mt-1 font-bold">+92 309 188 8891</p>
           </div>
 
           {/* Right column */}

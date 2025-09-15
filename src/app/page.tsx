@@ -2,7 +2,9 @@ import { Banner } from "@/components/Banner";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { LogoTicker } from "@/components/LogoTicker";
+import { AboutUs } from "@/components/AboutUs";
 import { Features } from "@/components/Features";
+import { Services } from "@/components/Services";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { FAQs } from "@/components/FAQs";
 import { CallToAction } from "@/components/CallToAction";
@@ -18,14 +20,17 @@ export default function Home() {
       <Navbar />
       <Hero />
       <LogoTicker />
+      <AboutUs />
       
       <Features />
+      <Services />
       
-      <ProductShowcase />
+      {/* <ProductShowcase /> */}
       <FAQs />
-      <Pricing/>
+      {/* <Pricing/> */}
      
       <CallToAction />
+      {/* <CallToAction /> */}
       </div>
       <Footer />
     </>

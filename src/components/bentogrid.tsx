@@ -69,7 +69,7 @@ const LogoBeam = () => {
   );
 };
 
-const data = [50, 40, 300, 320, 500, 350, 200, 230, 500];
+const data = [85, 92, 78, 95, 88, 96, 89, 94, 98]; // Client satisfaction scores
 const maxData = Math.max(...data);
 const chartHeight = 400;
 const chartWidth = 800;
@@ -167,8 +167,8 @@ const AWSIcon = () => {
 
       
       <div className="text-left p-6 mt-4">
-        <h1 className="text-white text-2xl font-bold mb-2">AWS Integration</h1>
-        <p className="text-gray-400 text-lg">integrate AWS and use seamlessly with us.</p>
+        <h1 className="text-white text-2xl font-bold mb-2">24/7 Support</h1>
+        <p className="text-gray-400 text-lg">Round-the-clock technical support and maintenance to ensure your software runs smoothly and your business never stops growing.</p>
       </div>
     </div>
   );
@@ -211,7 +211,7 @@ const BentoBox1 = () => {
           <div className="flex flex-col justify-between h-full">
             <div className="mb-4 px-6 mt-6">
               <div className="flex justify-between items-center mb-6 pb-2">
-                <h2 className="text-white/70 text-xl">Sales Data</h2>
+                <h2 className="text-white/70 text-xl">Client Success Metrics</h2>
                 <div className="flex items-center">
                   <div className="h-1 bg-black w-8 rounded-lg"></div>
                   <span className="ml-2 text-white/70 text-sm">Growth</span>
@@ -258,7 +258,7 @@ const BentoBox1 = () => {
                       className="absolute left-0 w-full flex items-center text-white/30 text-sm"
                       style={{ top: `${(100 / 6) * i}%` }}
                     >
-                      <span className="mr-4">{`${10 + i * 10}%`}</span>
+                      <span className="mr-4">{`${70 + i * 5}%`}</span>
                       <div className="w-full border-t border-white/70"></div>
                     </div>
                   ))}
@@ -266,8 +266,8 @@ const BentoBox1 = () => {
               </div>
             </div>
             <div className="text-left p-6 mt-4">
-              <h1 className="text-white text-2xl font-bold mb-2">Incredible Growth</h1>
-              <p className="text-white/70 text-lg">Fly through your tasks with rapid-fire keyboard shortcuts for everything. Literally everything.</p>
+              <h1 className="text-white text-2xl font-bold mb-2">Proven Results</h1>
+              <p className="text-white/70 text-lg">Our custom software solutions have helped businesses achieve 300% average growth in efficiency and productivity. We deliver measurable ROI through innovative technology.</p>
             </div>
           </div>
         </CardWithEffect>
@@ -276,8 +276,8 @@ const BentoBox1 = () => {
             <div className="flex flex-col justify-center h-full">
               <LogoBeam />
               <div className="text-left p-6">
-                <h1 className="text-white text-2xl font-bold mb-2">Multiple Technologies</h1>
-                <p className="text-white/70 text-lg">Fly through your tasks with rapid-fire keyboard shortcuts for everything. Literally everything.</p>
+                <h1 className="text-white text-2xl font-bold mb-2">Expert Team</h1>
+                <p className="text-white/70 text-lg">Our experienced developers and designers work with cutting-edge technologies to build scalable, secure, and user-friendly applications that exceed expectations.</p>
               </div>
             </div>
           </CardWithEffect>
