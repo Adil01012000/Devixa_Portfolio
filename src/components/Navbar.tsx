@@ -1,41 +1,108 @@
+"use client";
 
-import LogoImage from '../app/favicon.ico';
-import MenuIcon from '../assets/icons/menu.svg';
+import { useEffect, useState } from "react";
+import { Menu, User, X } from "lucide-react";
+import LogoImage from "@/assets/icons/logo1.svg";
+import { cn } from "@/components/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#services", label: "Services" },
+  { href: "#metrics", label: "Metrics" },
+  { href: "#values", label: "Values" },
+  { href: "#portfolio", label: "Portfolio" },
+  { href: "#faq", label: "FAQ" },
+];
 
 export const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="bg-black">
-      <div className="px-4">
-    <div className="container bg-black">
-      <div className="py-4 flex items-center justify-between">
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled && "backdrop-blur-md bg-surface/40"
+      )}
+    >
+      <div className="h-20 canvas-padding flex items-center justify-between gap-space-md">
+        <a href="#" className="flex items-center gap-space-sm shrink-0">
+          <LogoImage className="h-8 w-8" aria-hidden />
+          <span className="font-manrope text-headline-sm font-semibold tracking-tight text-on-surface hidden sm:inline">
+            Devixa Technologies
+          </span>
+        </a>
 
-      {/* <div className="relative">
-        <div className='absolute w-full top-2 bottom-0 bg-[linear-gradient(to_right,#F7AABE,#B57CEC,#E472D1)] blur-md '></div> */}
+        <div className="hidden lg:flex items-center glass-nav px-space-md py-space-xs rounded-full">
+          <nav className="flex items-center gap-space-xs">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="px-space-md py-space-xs rounded-full font-geist text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
 
-      <img src={LogoImage.src ?? LogoImage} alt="Logo" className="h-12 w-12 relative mt-1"/>
-      {/* </div> */}
-      <div className='border border-white border-opacity-30 h-10 w-10 inline-flex justify-center items-center rounded-lg sm:hidden'>
-
-      <MenuIcon className="text-white" />
+        <div className="flex items-center gap-space-sm">
+          <a href="#quote" className="btn-primary hidden sm:inline-flex text-sm py-2.5">
+            Get Free Quote
+          </a>
+          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-sm">
+            <User className="w-4 h-4 text-on-primary" />
+          </div>
+          <button
+            type="button"
+            className="lg:hidden w-10 h-10 rounded-full glass-nav flex items-center justify-center"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileOpen ? (
+              <X className="w-5 h-5 text-on-surface" />
+            ) : (
+              <Menu className="w-5 h-5 text-on-surface" />
+            )}
+          </button>
+        </div>
       </div>
-      <nav className='text-white gap-6 items-center hidden sm:flex'>
-        
-        <a href="#about" className='text-opacity-60 text-white hover:text-opacity-100 transition' >About</a>
-        <a href="#services" className='text-opacity-60 text-white hover:text-opacity-100 transition'>Services</a>
-        <a href="#features" className='text-opacity-60 text-white hover:text-opacity-100 transition'>Features</a>
-        <a href="#portfolio" className='text-opacity-60 text-white hover:text-opacity-100 transition'>Portfolio</a>
-        <a href="#contact" className='text-opacity-60 text-white hover:text-opacity-100 transition'>Contact</a>
-        <button className='bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] text-white py-2 px-6 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 active:scale-95'>Get Free Quote</button>
-      </nav>
 
-      </div>
-
-
-
-
-    </div>
-    </div>
-    </div>
-  )
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden overflow-hidden border-t border-white/[0.06] bg-surface-container-low/95 backdrop-blur-2xl"
+          >
+            <nav className="canvas-padding py-space-md flex flex-col gap-space-xs">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-space-md py-space-sm rounded-xl font-geist text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a href="#quote" className="btn-primary mt-space-sm justify-center" onClick={() => setMobileOpen(false)}>
+                Get Free Quote
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
 };

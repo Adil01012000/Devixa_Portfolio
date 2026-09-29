@@ -1,263 +1,156 @@
-"use client"
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+"use client";
 
-const CardWithEffect = ({ children }: { children: React.ReactNode }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+import { BookOpen, ChevronRight, Verified } from "lucide-react";
+import { SectionReveal, StaggerContainer, staggerItem } from "@/components/motion/SectionReveal";
+import { motion } from "framer-motion";
+import { BentoTilt } from "@/components/motion/BentoTilt";
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  return (
-    <div
-      className="relative bg-[#000] flex-1 rounded-xl border border-white/30 p-4 sm:p-6 overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/50"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ willChange: 'transform' }}
-    >
-      {isHovered && (
-        <div
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            width: '300px',
-            height: '300px',
-            top: mousePosition.y - 150,
-            left: mousePosition.x - 150,
-            background: '#5D2CA8',
-            filter: 'blur(100px)',
-            transform: 'translate(-0%, -0%)',
-            zIndex: 10,
-            willChange: 'transform, top, left',
-          }}
-        />
-      )}
-      {children}
-    </div>
-  );
-};
-
-const StatCard = ({ number, label, description }: { number: string; label: string; description: string }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="text-center"
-    >
-      <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] bg-clip-text text-transparent mb-2">
-        {number}
-      </div>
-      <div className="text-xl sm:text-2xl font-semibold text-white mb-2">{label}</div>
-      <div className="text-white/70 text-sm sm:text-base">{description}</div>
-    </motion.div>
-  );
-};
-
-const ValueCard = ({ icon, title, description }: { icon: string; title: string; description: string }) => {
-  return (
-    <CardWithEffect>
-      <div className="flex flex-col items-center text-center h-full">
-        <div className="text-4xl sm:text-5xl mb-4">{icon}</div>
-        <h3 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{title}</h3>
-        <p className="text-white/70 text-base sm:text-lg leading-relaxed">{description}</p>
-      </div>
-    </CardWithEffect>
-  );
-};
-
-const TeamMember = ({ name, role, description }: { name: string; role: string; description: string }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="bg-[#000] border border-white/30 rounded-xl p-4 sm:p-6 text-center hover:border-white/50 transition-all duration-300"
-    >
-      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] rounded-full mx-auto mb-4 flex items-center justify-center">
-        <span className="text-2xl sm:text-3xl">👨‍💻</span>
-      </div>
-      <h4 className="text-white text-lg sm:text-xl font-bold mb-2">{name}</h4>
-      <p className="text-[#5D2CA8] text-sm sm:text-base font-medium mb-3">{role}</p>
-      <p className="text-white/70 text-sm sm:text-base">{description}</p>
-    </motion.div>
-  );
-};
+const values = [
+  {
+    emoji: "🎯",
+    title: "Excellence",
+    description:
+      "We strive for perfection in every project, delivering solutions that exceed expectations and drive measurable results.",
+    foot: "Rigorous QA & Clean Architecture",
+  },
+  {
+    emoji: "🤝",
+    title: "Collaboration",
+    description:
+      "We work closely with our clients as partners, ensuring transparent communication and shared long-term success.",
+    foot: "Direct Access to Engineering Leads",
+  },
+  {
+    emoji: "💡",
+    title: "Innovation",
+    description:
+      "We embrace cutting-edge technologies and creative approaches to solve complex, high-stakes business challenges.",
+    foot: "Continuous R&D Integration",
+  },
+];
 
 export const AboutUs = () => {
   return (
-    <div id="about" className="bg-black text-white py-[72px] sm:py-24">
-      <div className="container">
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl sm:text-6xl font-bold tracking-tighter mb-6">
-            About <span className="bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] bg-clip-text text-transparent">Devixa Technologies</span>
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-xl sm:text-2xl text-white/70 leading-relaxed mb-8">
-              We are a passionate team of developers, designers, and innovators dedicated to transforming 
-              your ideas into powerful digital solutions that drive business success.
-            </p>
-            <p className="text-lg text-white/60 leading-relaxed">
-              Founded with a vision to bridge the gap between cutting-edge technology and business needs, 
-              Devixa Technologies has been at the forefront of custom software development, delivering 
-              exceptional results for clients across various industries.
-            </p>
+    <section id="about" className="w-full py-space-3xl relative">
+      <div className="canvas-padding">
+        <SectionReveal className="text-center max-w-3xl mx-auto mb-space-2xl">
+          <div className="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary-container/20 text-primary font-geist text-xs uppercase font-semibold mb-space-sm">
+            Identity & Philosophy
           </div>
-        </motion.div>
+          <h2 className="font-manrope text-3xl md:text-headline-lg text-on-surface tracking-tight">
+            About <span className="text-primary font-extrabold">Devixa Technologies</span>
+          </h2>
+          <p className="font-geist text-lg text-on-surface-variant mt-space-sm">
+            We are a passionate team of developers, designers, and innovators dedicated to
+            transforming your ideas into powerful digital solutions that drive business success.
+          </p>
+        </SectionReveal>
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-16"
-        >
-          <StatCard 
-            number="50+" 
-            label="Projects Delivered" 
-            description="Successfully completed software projects" 
-          />
-          <StatCard 
-            number="25+" 
-            label="Happy Clients" 
-            description="Satisfied businesses worldwide" 
-          />
-          <StatCard 
-            number="5+" 
-            label="Years Experience" 
-            description="In software development" 
-          />
-          <StatCard 
-            number="99%" 
-            label="Client Satisfaction" 
-            description="Based on project feedback" 
-          />
-        </motion.div>
-
-        {/* Our Story Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-3xl sm:text-4xl font-bold mb-6">Our Story</h3>
-              <div className="space-y-4 text-white/70 text-base sm:text-lg leading-relaxed">
-                <p>
-                  Devixa Technologies was born from a simple yet powerful belief: every business deserves 
-                  access to world-class software solutions that can transform their operations and drive growth.
-                </p>
-                <p>
-                  What started as a small team of passionate developers has grown into a full-service 
-                  software development agency, serving clients from startups to enterprise-level organizations.
-                </p>
-                <p>
-                  We combine technical expertise with business acumen, ensuring that every solution we build 
-                  not only meets technical requirements but also delivers real business value.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-[#5D2CA8] to-[#A46EDB] rounded-2xl p-8 h-80 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-6xl mb-4">🚀</div>
-                  <h4 className="text-2xl font-bold mb-2">Innovation First</h4>
-                  <p className="text-white/80">Building the future, one line of code at a time</p>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-gutter">
+          <motion.div variants={staggerItem} className="lg:col-span-7">
+            <BentoTilt>
+              <div className="glass-card hover:bg-surface-container-high/60 transition-all duration-300 p-space-xl flex flex-col justify-between min-h-full group hover:shadow-glow-primary">
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-primary-container/30 flex items-center justify-center text-primary mb-space-md">
+                    <BookOpen className="w-7 h-7" />
+                  </div>
+                  <h3 className="font-manrope text-headline-md text-on-surface font-semibold mb-space-sm">
+                    Our Story
+                  </h3>
+                  <p className="font-geist text-on-surface-variant leading-relaxed mb-space-md">
+                    Devixa Technologies was born from a simple yet powerful belief: every business
+                    deserves access to world-class software solutions that can transform their
+                    operations and drive growth.
+                  </p>
+                  <p className="font-geist text-on-surface-variant leading-relaxed">
+                    What started as a small team of passionate developers has grown into a
+                    full-service software development agency, serving clients from startups to
+                    enterprise-level organizations. We combine technical expertise with business
+                    acumen, ensuring every build delivers measurable business value.
+                  </p>
+                </div>
+                <div className="mt-space-lg pt-space-md border-t border-outline-variant/20 flex items-center gap-space-sm text-on-surface font-geist text-sm font-semibold">
+                  <Verified className="w-4 h-4 text-primary" />
+                  <span>Bridging cutting-edge technology and business performance.</span>
                 </div>
               </div>
+            </BentoTilt>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className="lg:col-span-5">
+            <BentoTilt>
+              <div className="bg-gradient-to-br from-primary-container/40 via-inverse-primary/30 to-surface-container rounded-2xl p-space-xl backdrop-blur-2xl flex flex-col justify-between relative overflow-hidden min-h-full shadow-[0_0_50px_rgba(183,109,255,0.2)]">
+                <div className="absolute -right-8 -top-8 w-44 h-44 bg-primary/20 blur-3xl rounded-full" aria-hidden />
+                <div className="relative z-10">
+                  <div className="text-4xl mb-space-md">🚀</div>
+                  <div className="inline-block px-3 py-1 rounded-full bg-primary/30 text-primary-fixed text-xs font-bold uppercase tracking-wider mb-space-sm">
+                    Devixa Principle
+                  </div>
+                  <h3 className="font-manrope text-headline-md text-white font-bold mb-space-xs">
+                    Innovation First
+                  </h3>
+                  <p className="font-manrope text-headline-sm text-primary-fixed font-medium">
+                    Building the future, one line of code at a time.
+                  </p>
+                  <p className="font-geist text-sm text-on-surface-variant mt-space-md leading-relaxed">
+                    We never settle for legacy constraints. We engineer with tomorrow&apos;s
+                    architectural standards today.
+                  </p>
+                </div>
+                <div className="mt-space-lg bg-surface-container-lowest/80 rounded-xl p-space-sm text-xs font-mono text-primary-fixed leading-tight border border-primary/20 relative z-10">
+                  <code>
+                    &gt; git commit -m &quot;feat(quantum): scale globally&quot;
+                    <br />
+                    <span className="text-secondary font-semibold">
+                      &gt; Deploying to edge workers... Done [28ms]
+                    </span>
+                  </code>
+                </div>
+              </div>
+            </BentoTilt>
+          </motion.div>
+
+          {values.map((v, i) => (
+            <motion.div
+              key={v.title}
+              variants={staggerItem}
+              className="lg:col-span-4"
+              id={i === 0 ? "values" : undefined}
+            >
+              <BentoTilt>
+                <div className="glass-card hover:bg-surface-container-high/60 transition-all duration-300 p-space-lg flex flex-col justify-between min-h-[240px] h-full hover:shadow-glow-primary">
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-3xl mb-space-md">
+                      {v.emoji}
+                    </div>
+                    <h4 className="font-manrope text-headline-sm text-on-surface font-semibold mb-space-xs">
+                      {v.title}
+                    </h4>
+                    <p className="font-geist text-on-surface-variant leading-relaxed">{v.description}</p>
+                  </div>
+                  <div className="font-geist text-xs text-primary font-semibold flex items-center gap-1 mt-space-md">
+                    <span>{v.foot}</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </BentoTilt>
+            </motion.div>
+          ))}
+
+          <motion.div variants={staggerItem} className="lg:col-span-12">
+            <div className="bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container rounded-2xl p-space-xl text-center relative overflow-hidden">
+              <div className="max-w-4xl mx-auto relative z-10">
+                <span className="section-kicker block mb-space-xs">Our Mission</span>
+                <p className="font-manrope text-xl md:text-headline-md text-on-surface font-medium italic leading-relaxed">
+                  &ldquo;To empower businesses with innovative software solutions that drive growth,
+                  enhance efficiency, and create lasting competitive advantages in the digital
+                  landscape.&rdquo;
+                </p>
+              </div>
             </div>
-          </div>
-        </motion.div>
-
-        {/* Our Values Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12">Our Core Values</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ValueCard
-              icon="🎯"
-              title="Excellence"
-              description="We strive for perfection in every project, delivering solutions that exceed expectations and drive measurable results."
-            />
-            <ValueCard
-              icon="🤝"
-              title="Collaboration"
-              description="We work closely with our clients as partners, ensuring transparent communication and shared success."
-            />
-            <ValueCard
-              icon="💡"
-              title="Innovation"
-              description="We embrace cutting-edge technologies and creative approaches to solve complex business challenges."
-            />
-          </div>
-        </motion.div>
-
-        {/* Team Section */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12">Meet Our Team</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <TeamMember
-              name="Alex Johnson"
-              role="Lead Developer"
-              description="Full-stack developer with 8+ years of experience in building scalable web applications and mobile solutions."
-            />
-            <TeamMember
-              name="Sarah Chen"
-              role="UX/UI Designer"
-              description="Creative designer passionate about creating intuitive user experiences that drive engagement and conversion."
-            />
-            <TeamMember
-              name="Michael Rodriguez"
-              role="Project Manager"
-              description="Experienced project manager ensuring smooth delivery and client satisfaction across all our projects."
-            />
-          </div>
-        </motion.div> */}
-
-        {/* Mission Statement */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] rounded-2xl p-8 sm:p-12">
-            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6">Our Mission</h3>
-            <p className="text-xl sm:text-2xl text-white/90 leading-relaxed max-w-4xl mx-auto">
-              "To empower businesses with innovative software solutions that drive growth, 
-              enhance efficiency, and create lasting competitive advantages in the digital landscape."
-            </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </StaggerContainer>
       </div>
-    </div>
+    </section>
   );
 };
