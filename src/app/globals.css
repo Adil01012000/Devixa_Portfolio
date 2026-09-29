@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-geist antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary-container text-on-primary-container;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer components {
+  .canvas-padding {
+    @apply px-margin md:px-margin-md lg:px-margin-lg max-w-canvas mx-auto;
+  }
+
+  .glass-card {
+    @apply bg-surface-container/60 backdrop-blur-xl border border-white/[0.08] rounded-2xl;
+  }
+
+  .glass-nav {
+    @apply bg-surface-container-low/70 backdrop-blur-2xl border border-white/[0.08] shadow-glass;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-space-xs px-space-xl py-space-sm rounded-full font-geist text-sm font-semibold text-on-primary bg-gradient-to-r from-primary-container via-inverse-primary to-primary shadow-glow-primary-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_45px_rgba(183,109,255,0.7)];
+  }
+
+  .btn-glass {
+    @apply inline-flex items-center justify-center gap-space-xs px-space-xl py-space-sm rounded-full font-geist text-sm font-semibold text-on-surface bg-surface-container/70 backdrop-blur-xl border border-outline-variant/30 hover:bg-surface-container-high transition-all duration-200;
+  }
+
+  .chip {
+    @apply px-3 py-1.5 rounded-full bg-surface-container-highest text-on-surface text-xs font-medium;
+  }
+
+  .section-kicker {
+    @apply font-geist text-xs uppercase font-semibold tracking-widest text-primary;
+  }
+}

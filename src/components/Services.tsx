@@ -1,236 +1,165 @@
-"use client"
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+"use client";
 
-const CardWithEffect = ({ children }: { children: React.ReactNode }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+import {
+  ArrowRight,
+  Building2,
+  Calendar,
+  Laptop,
+  Palette,
+  Smartphone,
+} from "lucide-react";
+import { SectionReveal, StaggerContainer, staggerItem } from "@/components/motion/SectionReveal";
+import { motion } from "framer-motion";
+import { BentoTilt } from "@/components/motion/BentoTilt";
+import type { LucideIcon } from "lucide-react";
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  return (
-    <div
-      className="relative bg-[#000] flex-1 rounded-xl border border-white/30 p-4 sm:p-6 overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/50"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ willChange: 'transform' }}
-    >
-      {isHovered && (
-        <div
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            width: '300px',
-            height: '300px',
-            top: mousePosition.y - 150,
-            left: mousePosition.x - 150,
-            background: '#5D2CA8',
-            filter: 'blur(100px)',
-            transform: 'translate(-0%, -0%)',
-            zIndex: 10,
-            willChange: 'transform, top, left',
-          }}
-        />
-      )}
-      {children}
-    </div>
-  );
+type Service = {
+  num: string;
+  category: string;
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  linkClass: string;
+  icon: LucideIcon;
+  iconWrap: string;
+  iconColor: string;
 };
 
-const ServiceIcon = ({ icon, title }: { icon: string; title: string }) => {
-  return (
-    <div className="flex flex-col items-center justify-center mb-4 sm:mb-6">
-      <div className="relative bg-black border-2 border-white/70 rounded-2xl flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 p-3 sm:p-4 overflow-hidden shadow-[0_0_15px_5px_#dbe0e2] mb-3 sm:mb-4">
-        <span className="text-2xl sm:text-3xl">{icon}</span>
-        <motion.div
-          className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
-          initial={{ x: '-100%' }}
-          animate={{ x: '100%' }}
-          transition={{
-            duration: 2,
-            ease: 'linear',
-            repeat: Infinity,
-            repeatType: 'loop',
-          }}
-          style={{ willChange: 'transform' }}
-        />
-      </div>
-    </div>
-  );
-};
+const services: Service[] = [
+  {
+    num: "01 / ARCHITECTURE",
+    category: "architecture",
+    title: "Custom Software Development",
+    description:
+      "Tailored software solutions built from scratch to meet your unique business requirements. We create scalable, secure, and efficient applications that drive your business forward.",
+    tags: ["Web Applications", "Desktop Software", "API Development", "Database Design"],
+    link: "Request Architecture Review",
+    linkClass: "text-primary",
+    icon: Laptop,
+    iconWrap: "bg-primary-container/20 text-primary",
+    iconColor: "text-primary",
+  },
+  {
+    num: "02 / MOBILITY",
+    category: "mobility",
+    title: "Mobile Application Development",
+    description:
+      "Native and cross-platform mobile applications that deliver exceptional user experiences. From iOS to Android, we build apps that users love and businesses rely on.",
+    tags: ["iOS Apps", "Android Apps", "React Native", "Flutter", "Custom Mobile Apps"],
+    link: "Explore Mobile Capabilities",
+    linkClass: "text-secondary",
+    icon: Smartphone,
+    iconWrap: "bg-secondary-container/20 text-secondary",
+    iconColor: "text-secondary",
+  },
+  {
+    num: "03 / PRODUCT EXPERIENCE",
+    category: "design",
+    title: "UX/UI Design",
+    description:
+      "User-centered design that combines beautiful aesthetics with intuitive functionality. We create interfaces that not only look stunning but also provide seamless user experiences.",
+    tags: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
+    link: "View Design Gallery",
+    linkClass: "text-tertiary",
+    icon: Palette,
+    iconWrap: "bg-tertiary-container/20 text-tertiary",
+    iconColor: "text-tertiary",
+  },
+  {
+    num: "04 / ENTERPRISE",
+    category: "enterprise",
+    title: "Enterprise Solutions",
+    description:
+      "Comprehensive enterprise-grade solutions that integrate seamlessly with your existing systems. Built for scale, security, compliance, and sustained computational performance.",
+    tags: ["System Integration", "Cloud Migration", "DevOps", "Security"],
+    link: "Consult an Enterprise Architect",
+    linkClass: "text-primary-fixed",
+    icon: Building2,
+    iconWrap: "bg-primary-container/20 text-primary-fixed",
+    iconColor: "text-primary-fixed",
+  },
+];
 
-const CustomSoftwareCard = () => {
+function ServiceCard({ service }: { service: Service }) {
+  const Icon = service.icon;
   return (
-    <CardWithEffect>
-      <div className="flex flex-col justify-between h-full">
-        <ServiceIcon icon="💻" title="Custom Software" />
-        <div className="text-center">
-          <h3 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Custom Software Development</h3>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-            Tailored software solutions built from scratch to meet your unique business requirements. 
-            We create scalable, secure, and efficient applications that drive your business forward.
-          </p>
-          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2">
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Web Applications</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Desktop Software</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">API Development</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Database Design</span>
+    <BentoTilt>
+      <div className="glass-card hover:bg-surface-container-high transition-all duration-300 p-space-xl flex flex-col justify-between min-h-[420px] group overflow-hidden hover:shadow-glow-primary">
+        <div>
+          <div className="flex items-center justify-between mb-space-lg">
+            <div
+              className={`w-14 h-14 rounded-2xl flex items-center justify-center ${service.iconWrap}`}
+            >
+              <Icon className="w-8 h-8" />
+            </div>
+            <span className="font-geist text-xs text-on-surface-variant font-mono">
+              {service.num}
+            </span>
           </div>
+          <h3 className="font-manrope text-headline-sm text-on-surface font-bold mb-space-sm">
+            {service.title}
+          </h3>
+          <p className="font-geist text-on-surface-variant leading-relaxed mb-space-lg">
+            {service.description}
+          </p>
+        </div>
+        <div>
+          <div className="flex flex-wrap gap-2 mb-space-lg">
+            {service.tags.map((tag) => (
+              <span key={tag} className="chip">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <a
+            href="#quote"
+            className={`inline-flex items-center gap-2 font-geist text-sm font-semibold ${service.linkClass} group-hover:translate-x-1 transition-transform`}
+          >
+            <span>{service.link}</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
-    </CardWithEffect>
+    </BentoTilt>
   );
-};
-
-const MobileAppCard = () => {
-  return (
-    <CardWithEffect>
-      <div className="flex flex-col justify-between h-full">
-        <ServiceIcon icon="📱" title="Mobile Apps" />
-        <div className="text-center">
-          <h3 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Mobile Application Development</h3>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-            Native and cross-platform mobile applications that deliver exceptional user experiences. 
-            From iOS to Android, we build apps that users love and businesses rely on.
-          </p>
-          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2">
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">iOS Apps</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Android Apps</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">React Native</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Flutter</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Custom Mobile Apps</span>
-          </div>
-        </div>
-      </div>
-    </CardWithEffect>
-  );
-};
-
-const UXUICard = () => {
-  return (
-    <CardWithEffect>
-      <div className="flex flex-col justify-between h-full">
-        <ServiceIcon icon="🎨" title="UX/UI Design" />
-        <div className="text-center">
-          <h3 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">UX/UI Design</h3>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-            User-centered design that combines beautiful aesthetics with intuitive functionality. 
-            We create interfaces that not only look stunning but also provide seamless user experiences.
-          </p>
-          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2">
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">User Research</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Wireframing</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Prototyping</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Design Systems</span>
-          </div>
-        </div>
-      </div>
-    </CardWithEffect>
-  );
-};
-
-const EnterpriseCard = () => {
-  return (
-    <CardWithEffect>
-      <div className="flex flex-col justify-between h-full">
-        <ServiceIcon icon="🏢" title="Enterprise Solutions" />
-        <div className="text-center">
-          <h3 className="text-white text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Enterprise Solutions</h3>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-            Comprehensive enterprise-grade solutions that integrate seamlessly with your existing systems. 
-            Built for scale, security, and performance.
-          </p>
-          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2">
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">System Integration</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Cloud Migration</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">DevOps</span>
-            <span className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/80">Security</span>
-          </div>
-        </div>
-      </div>
-    </CardWithEffect>
-  );
-};
+}
 
 export const Services = () => {
   return (
-    <div id="services" className="bg-black text-white py-[72px] sm:py-24">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl sm:text-6xl font-bold tracking-tighter mb-6">
-            Our <span className="bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] bg-clip-text text-transparent">Services</span>
-          </h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-xl text-white/70 leading-relaxed">
-              We transform your ideas into powerful digital solutions. From concept to deployment, 
-              we provide end-to-end software development services that drive business growth.
-            </p>
+    <section id="services" className="w-full py-space-3xl bg-surface-container-lowest/70 relative">
+      <div className="canvas-padding">
+        <SectionReveal className="flex flex-col md:flex-row md:items-end justify-between mb-space-2xl gap-space-md">
+          <div>
+            <span className="section-kicker tracking-wider">Engineered for Performance</span>
+            <h2 className="font-manrope text-3xl md:text-headline-lg text-on-surface font-bold tracking-tight mt-space-xs">
+              Built for Scale. <span className="text-primary">Our Services</span>
+            </h2>
           </div>
-        </motion.div>
+          <p className="font-geist text-on-surface-variant max-w-md">
+            From concept to deployment, we provide end-to-end software development services that
+            drive real business growth.
+          </p>
+        </SectionReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="h-[350px] sm:h-[400px]"
-          >
-            <CustomSoftwareCard />
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="h-[350px] sm:h-[400px]"
-          >
-            <MobileAppCard />
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="h-[350px] sm:h-[400px]"
-          >
-            <UXUICard />
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="h-[350px] sm:h-[400px]"
-          >
-            <EnterpriseCard />
-          </motion.div>
-        </div>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-gutter-lg">
+          {services.map((s) => (
+            <motion.div key={s.title} variants={staggerItem}>
+              <ServiceCard service={s} />
+            </motion.div>
+          ))}
+        </StaggerContainer>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <button className="bg-gradient-to-r from-[#5D2CA8] to-[#A46EDB] text-white py-4 px-8 rounded-lg font-medium text-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 active:scale-95">
-            Get Free Consultation
-          </button>
-        </motion.div>
+        <SectionReveal className="mt-space-2xl text-center" delay={0.2}>
+          <a
+            href="#quote"
+            className="inline-flex items-center gap-2 px-space-xl py-space-sm rounded-full bg-primary-container text-on-primary font-geist text-sm font-semibold hover:bg-inverse-primary transition-all duration-300 shadow-md"
+          >
+            <span>Get Free Consultation</span>
+            <Calendar className="w-4 h-4" />
+          </a>
+        </SectionReveal>
       </div>
-    </div>
+    </section>
   );
 };
